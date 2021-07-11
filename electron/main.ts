@@ -22,6 +22,7 @@ const createWindow = (): void => {
   mainWindow = new BrowserWindow({
     height: 720,
     width: 1280,
+    frame: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,

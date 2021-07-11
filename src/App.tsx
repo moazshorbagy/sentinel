@@ -1,8 +1,24 @@
 import React from 'react';
-import * as ReactDOM from 'react-dom';
+import {
+    HashRouter as Router,
+    Switch,
+    Route,
+    Redirect
+} from 'react-router-dom';
 
-function render() {
-  ReactDOM.render(<h2>Hello from React!</h2>, document.body);
+import { LoginPage } from './pages/login';
+
+export const App: React.FC = () => {
+    return (
+        <Router>
+            <Switch>
+                <Route exact path="/">
+                    <LoginPage />
+                </Route>
+                <Route>
+                    <Redirect to="/" />
+                </Route>
+            </Switch>
+        </Router>
+    );
 }
-
-render();

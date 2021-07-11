@@ -1,0 +1,6 @@
+.title-bar {
+    height: 30px;
+    background-color: #1b1d23;
+    user-select: none;
+    -webkit-app-region: drag;
+}
