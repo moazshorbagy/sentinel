@@ -2,6 +2,6 @@ import React from 'react';
 
 export const LoginPage: React.FC = () => {
     return (
-        <h2></h2>
+        <h2>Hello from login</h2>
     );
 };
