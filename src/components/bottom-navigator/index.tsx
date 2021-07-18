@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { MouseEvent, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 
 import './bottom-navigator.css';
@@ -7,19 +8,18 @@ import { IBottomNavigatorProps } from './props';
 export const BottomNavigator: React.FC<IBottomNavigatorProps> = (
     props: IBottomNavigatorProps
 ) => {
+    const [currentPage, setCurrentPage] = useState('');
+    const linkClickHandler = (event: MouseEvent<HTMLAnchorElement>) => setCurrentPage(event.currentTarget.id);
     return (
         <footer className="bottom-navigator-container">
             {props.pages &&
         props.pages.map((page) => {
             let className = 'navigator-button';
-            if (location.pathname == page.url) {
+            if (currentPage == page.key.toString()) {
                 className += ' focused-navigator-button';
             }
-            if (page.key == 0) {
-                className += ' leftmost-navigator-button';
-            }
             return (
-                <Link key={page.key} className={className} to={page.url}>
+                <Link id={page.key.toString()} onClick={linkClickHandler} key={page.key} className={className} to={page.url}>
                     <p className="navigator-button-text">{page.name}</p>
                 </Link>
             );

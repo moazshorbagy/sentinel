@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { BottomNavigator } from './components/bottom-navigator';
 import { IPageRoute } from './components/bottom-navigator/props';
+import { PublicRoute } from './components/routing/public-route';
 
 import { TitleBar } from './components/title-bar';
 import { LoginPage } from './pages/login';
@@ -37,9 +38,7 @@ export const App: React.FC = () => {
                     <Route path="/login">
                         <LoginPage />
                     </Route>
-                    <Route path="/test-page">
-                        <TestPage />
-                    </Route>
+                    <PublicRoute path="/test-page" component={TestPage} />
                 </Switch>
                 <BottomNavigator pages={pages} />
             </Router>
