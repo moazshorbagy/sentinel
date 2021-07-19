@@ -6,12 +6,13 @@ import {
     Redirect
 } from 'react-router-dom';
 
+import './app.css';
 import { TitleBar } from './components/title-bar';
 import { LoginPage } from './pages/login';
 
 export const App: React.FC = () => {
     return (
-        <>
+        <div className="mainApp">
             <TitleBar />
             <Router>
                 <Switch>
@@ -23,6 +24,6 @@ export const App: React.FC = () => {
                     </Route>
                 </Switch>
             </Router>
-        </>
+        </div>
     );
 };
