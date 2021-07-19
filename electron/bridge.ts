@@ -1,23 +1,47 @@
 import { contextBridge, ipcRenderer } from 'electron';
 
+/**
+ * Has functions that interact with the main (electron) process
+ * without security problems.
+ * 
+ * Functions here can be accessed from the renderer process
+ * using `window.Main.someFunction`.
+ */
 export const api = {
     /**
-   * Here you can expose functions to the renderer process
-   * so they can interact with the main (electron) side
-   * without security problems.
-   *
-   * The function below can accessed using `window.Main.sayHello`
-   */
-
-    sendMessage: (message: string) => {
-        ipcRenderer.send('message', message);
+     * Tells the main process to minimize the window.
+     */
+    minimize: (): void => {
+        ipcRenderer.invoke('minimize-event');
     },
 
     /**
-   * Provide an easier way to listen to events
-   */
-    on: (channel: string, callback: Function) => {
-        ipcRenderer.on(channel, (_, data) => callback(data));
+     * Tells the main process to maximize the window.
+     */
+    maximize: (): void => {
+        ipcRenderer.invoke('maximize-event');
+    },
+
+    /**
+     * Tells the main process to restore down the window.
+     */
+    unmaximize: (): void => {
+        ipcRenderer.invoke('unmaximize-event');
+    },
+
+    /**
+     * Tells the main process to close the window.
+     */
+    close: (): void => {
+        ipcRenderer.invoke('close-event');
+    },
+
+    /**
+     * Listens to `channel`, when a new message arrives `callback`
+     * would be called.
+     */
+    on: (channel: string, callback: Function): void => {
+        ipcRenderer.on(channel, () => callback());
     }
 };
 
