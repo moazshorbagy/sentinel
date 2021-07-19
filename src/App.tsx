@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { BottomNavigator } from './components/bottom-navigator';
 import { IPageRoute } from './components/bottom-navigator/props';
+import { PrivateRoute } from './components/routing/private-route';
 import { PublicRoute } from './components/routing/public-route';
 
 import { TitleBar } from './components/title-bar';
@@ -17,12 +18,12 @@ export const App: React.FC = () => {
     const pages: IPageRoute[] = [
         {
             url: '/login',
-            name: 'route 1',
+            name: 'Login Page',
             key: 0,
         },
         {
             url: '/test-page',
-            name: 'route 3',
+            name: 'Protected Page',
             key: 2,
         },
     ];
@@ -35,10 +36,8 @@ export const App: React.FC = () => {
                     <Route exact path="/">
                         <Redirect to="/login" />
                     </Route>
-                    <Route path="/login">
-                        <LoginPage />
-                    </Route>
-                    <PublicRoute path="/test-page" component={TestPage} />
+                    <PublicRoute path="/login" component={LoginPage}/>
+                    <PrivateRoute path="/test-page" component={TestPage} />
                 </Switch>
                 <BottomNavigator pages={pages} />
             </Router>

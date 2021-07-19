@@ -11,8 +11,8 @@ export const authReducer = (prevState = initialState, action: IAuthAction): IAut
     case LOGIN: {
         return {
             ...prevState,
-            token: action.token,
-            loginTimestamp: action.loginTimestamp
+            token: action.userLoginViewModel.token,
+            loginTimestamp: action.userLoginViewModel.loginTimestamp
         };
     }
     default: return prevState;

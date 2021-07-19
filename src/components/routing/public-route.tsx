@@ -9,7 +9,7 @@ export const PublicRoute: React.FC<IEffectiveFinanceRouteProps> = ({
     ...rest
 }) => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.token ? true : false);
-
+    
     return (
         <Route
             {...rest}
@@ -17,7 +17,7 @@ export const PublicRoute: React.FC<IEffectiveFinanceRouteProps> = ({
                 !isAuthenticated ? (
                     <RouteComponent {...props} />
                 ) : (
-                    <Redirect to="/" />
+                    <Redirect to="/test-page" />
                 )
             }
         />

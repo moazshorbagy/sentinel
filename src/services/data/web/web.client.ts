@@ -6,7 +6,7 @@ declare module 'axios' {
 
 export abstract class WebClient {
 
-    private _baseURL = process.env.REACT_APP_API_SERVER || 'http://localhost:1337';
+    private _baseURL = 'http://localhost:4000';
     protected instance: AxiosInstance;
 
     constructor() {

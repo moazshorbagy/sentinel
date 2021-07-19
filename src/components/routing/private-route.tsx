@@ -17,7 +17,7 @@ export const PrivateRoute: React.FC<IEffectiveFinanceRouteProps> = ({
                 isAuthenticated ? (
                     <RouteComponent {...props} />
                 ) : (
-                    <Redirect to="/" />
+                    <Redirect to="/login" />
                 )
             }
         />

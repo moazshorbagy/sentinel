@@ -10,24 +10,23 @@ export class AuthActions {
     private _repository: IUsersRepository;
     constructor() {
         // Determine which repo to use depending on environment
-        const environment = process.env.NODE_ENV || 'development';
-        if (environment == 'development') {
+        // const environment = process.env.NODE_ENV || 'development';
+        // if (environment == 'development') {
             this._repository = new UsersRepository();
-        }
+        // }
     }
 
     public signIn(username: string, password: string): ThunkAction<void, RootState, null, IAuthAction> {
-        const request = new UserLoginRequest(username, password);
-        const loginUseCase = new LoginUseCase(this._repository);
-        return async dispath => {
+        return async dispatch => {
             try {
-                const response = await loginUseCase.execute(request);
+                const request = new UserLoginRequest(username, password);
+                const loginUseCase = new LoginUseCase(this._repository);
+                const userLoginViewModel = await loginUseCase.execute(request);
                 const action: IAuthAction = {
                     type: LOGIN,
-                    token: response.token,
-                    loginTimestamp: response.loginTimestamp
+                    userLoginViewModel: userLoginViewModel
                 };
-                dispath(action);
+                dispatch(action);
             } catch(e) {
                 console.log(e);
             }
