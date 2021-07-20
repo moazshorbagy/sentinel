@@ -1,4 +1,4 @@
-import React, {ChangeEvent, MouseEvent, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { AuthActions } from '../../services/redux/actions/authentication/auth.actions';
 
@@ -10,19 +10,19 @@ export const LoginPage: React.FC = () => {
 
     const usernameChangeListener = (e: ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
-    }
+    };
 
     const passwordChangeListener = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
-    }
+    };
 
     
     console.log(location.href);
 
-    const onSubmit = (event: MouseEvent<HTMLButtonElement>) => {
+    const onSubmit = () => {
         const authActions = new AuthActions();
         dispatch(authActions.signIn(username, password));
-    }
+    };
 
     return (
         <div>

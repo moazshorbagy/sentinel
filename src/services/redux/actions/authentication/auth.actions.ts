@@ -12,7 +12,7 @@ export class AuthActions {
         // Determine which repo to use depending on environment
         // const environment = process.env.NODE_ENV || 'development';
         // if (environment == 'development') {
-            this._repository = new UsersRepository();
+        this._repository = new UsersRepository();
         // }
     }
 

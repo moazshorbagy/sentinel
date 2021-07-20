@@ -1,5 +1,4 @@
 import React, { MouseEvent, useState } from 'react';
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 
 import './bottom-navigator.css';
@@ -13,17 +12,17 @@ export const BottomNavigator: React.FC<IBottomNavigatorProps> = (
     return (
         <footer className="bottom-navigator-container">
             {props.pages &&
-        props.pages.map((page) => {
-            let className = 'navigator-button';
-            if (currentPage == page.key.toString()) {
-                className += ' focused-navigator-button';
-            }
-            return (
-                <Link id={page.key.toString()} onClick={linkClickHandler} key={page.key} className={className} to={page.url}>
-                    <p className="navigator-button-text">{page.name}</p>
-                </Link>
-            );
-        })}
+                props.pages.map((page) => {
+                    let className = 'navigator-button';
+                    if (currentPage == page.key.toString()) {
+                        className += ' focused-navigator-button';
+                    }
+                    return (
+                        <Link id={page.key.toString()} onClick={linkClickHandler} key={page.key} className={className} to={page.url}>
+                            <p className="navigator-button-text">{page.name}</p>
+                        </Link>
+                    );
+                })}
         </footer>
     );
 };

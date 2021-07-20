@@ -1,4 +1,4 @@
-import { UserLoginViewModel } from "../../../core/usecases/login/login.viewmodel";
+import { UserLoginViewModel } from '../../../core/usecases/login/login.viewmodel';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
