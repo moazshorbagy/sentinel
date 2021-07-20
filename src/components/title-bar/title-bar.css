@@ -49,6 +49,7 @@
 .title-bar-title {
     width: 100%;
     text-align: center;
+    margin: auto;
 }
 
 .title-bar-windows-controls {
