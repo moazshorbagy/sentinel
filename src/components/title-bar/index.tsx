@@ -59,20 +59,28 @@ export class TitleBar extends Component<Record<string, never>, TitleBarState> {
                 </div>
 
                 <div className="title-bar-center">
-                    My First Project - Effective Finance
+                    <p className='title-bar-title'>My First Project - Effective Finance</p>
                 </div>
 
                 <div className="title-bar-windows-controls">
-                    <div className="windows-controls-box minimize-logo" onClick={this.minimizeHandler}>
+                    <div
+                        className="windows-controls-box minimize-logo"
+                        onClick={this.minimizeHandler}>
                     </div>
                     {this.state.isMaximized ?
-                        <div className="windows-controls-box unmaximize-logo" onClick={this.unmaximizeHandler}>
+                        <div
+                            className="windows-controls-box unmaximize-logo"
+                            onClick={this.unmaximizeHandler}>
                         </div>
                         :
-                        <div className="windows-controls-box maximize-logo" onClick={this.maximizeHandler}>
+                        <div
+                            className="windows-controls-box maximize-logo"
+                            onClick={this.maximizeHandler}>
                         </div>
                     }
-                    <div className="windows-controls-box close-logo" onClick={this.closeHandler}>
+                    <div
+                        className="windows-controls-box close-logo"
+                        onClick={this.closeHandler}>
                     </div>
                 </div>
 
