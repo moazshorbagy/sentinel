@@ -10,6 +10,7 @@ import { IPageRoute } from './components/bottom-navigator/props';
 import { PrivateRoute } from './components/routing/private-route';
 import { PublicRoute } from './components/routing/public-route';
 
+import './app.css';
 import { TitleBar } from './components/title-bar';
 import { LoginPage } from './pages/login';
 import { TestPage } from './pages/test-page';
@@ -29,7 +30,7 @@ export const App: React.FC = () => {
     ];
 
     return (
-        <>
+        <div className="mainApp">
             <TitleBar />
             <Router>
                 <Switch>
@@ -41,6 +42,6 @@ export const App: React.FC = () => {
                 </Switch>
                 <BottomNavigator pages={pages} />
             </Router>
-        </>
+        </div>
     );
 };
