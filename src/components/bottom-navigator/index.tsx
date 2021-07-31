@@ -13,14 +13,14 @@ export const BottomNavigator: React.FC<IBottomNavigatorProps> = (
         <footer className="bottom-navigator primary">
             {props.pages &&
                 props.pages.map((page) => {
-                    let className = 'navigator-button';
+                    let className = 'navigator-btn';
                     if (currentPage == page.key.toString()) {
                         className += ' p-dark';
                     }
                     return (
                         <div key={page.key} className="navigation-btn-container">
                             <Link id={page.key.toString()} onClick={linkClickHandler} className={className} to={page.url}>
-                                <p className="navigator-button-text">{page.name}</p>
+                                <p className="navigator-btn-text">{page.name}</p>
                             </Link>
                             <div className="separator p-dark"></div>
                         </div>
