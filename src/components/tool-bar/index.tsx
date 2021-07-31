@@ -8,7 +8,7 @@ import undoIcon from './icons/undo_24dp.svg';
 import redoIcon from './icons/redo_24dp.svg';
 
 export const ToolBar: React.FC = () => {
-    const size = '24px';
+    const size = '20px';
     return (
         <div className="toolbar-container">
             <IconButton name="Undo" height={size} width={size} iconUrl={undoIcon} alt="undo_icon" />
