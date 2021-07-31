@@ -47,7 +47,7 @@ export class TitleBar extends Component<Record<string, never>, TitleBarState> {
 
     render(): JSX.Element {
         return (
-            <div className='title-bar'>
+            <div className='title-bar primary'>
 
                 <div className="title-bar-drag-region"></div>
 

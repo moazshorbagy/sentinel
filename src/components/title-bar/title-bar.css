@@ -1,127 +1,106 @@
 .title-bar {
-    position: relative;
-    top: 0px;
-    width: 100%;
-    height: 30px;
-    background-color: #2A2A2A;
-    display: flex;
-    flex-direction: row;
-    user-select: none;
-    -webkit-user-select: none;
+  position: relative;
+  top: 0px;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .title-bar-drag-region {
-    top: 0;
-    left: 0;
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    -webkit-app-region: drag;
+  top: 0;
+  left: 0;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  -webkit-app-region: drag;
 }
 
 .title-bar-icon {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 50px;
-    position: relative;
-    /*background-color: rgb(248, 14, 178);*/
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 50px;
+  position: relative;
+  /*background-color: rgb(248, 14, 178);*/
 }
 
 .title-bar-menu-bar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 135px;
-    /*background-color: rgb(49, 14, 248);*/
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 135px;
+  /*background-color: rgb(49, 14, 248);*/
 }
 
 .title-bar-center {
-    /*background-color: rgb(157, 255, 0);*/
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    align-items: center;
+  /*background-color: rgb(157, 255, 0);*/
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
 }
 
 .title-bar-title {
-    width: 100%;
-    text-align: center;
-    margin: auto;
+  width: 100%;
+  text-align: center;
+  margin: auto;
 }
 
 .title-bar-windows-controls {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 135px;
-    height: 30px;
-    /* needs no-drag for color changing div*/
-    -webkit-app-region: no-drag;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 135px;
+  height: 30px;
+  /* needs no-drag for color changing div*/
+  -webkit-app-region: no-drag;
 }
 
 .windows-controls-box {
-    width: 45px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
+  width: 45px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
 }
 
 .minimize-logo {
-    background-image: url('./icons/minimize-button-15.png');
+  background-image: url("./icons/minimize-button-15.png");
 }
 
 .unmaximize-logo {
-    background-image: url('./icons/restore-button-15.png');
+  background-image: url("./icons/restore-button-15.png");
 }
 
 .maximize-logo {
-    background-image: url('./icons/maximize-button-15.png');
+  background-image: url("./icons/maximize-button-15.png");
 }
 
 .close-logo {
-    background-image: url('./icons/close-button-15.png');
+  background-image: url("./icons/close-button-15.png");
 }
 
-.minimize-logo:hover, .maximize-logo:hover, .unmaximize-logo:hover {
-    background-color: #4e4e4e;
+.minimize-logo:hover,
+.maximize-logo:hover,
+.unmaximize-logo:hover {
+  background-color: #004ecb;
 }
 
 .close-logo:hover {
-    background-color: rgb(216, 32, 0);
+  background-color: rgb(216, 32, 0);
 }
 
 .resizer {
-    -webkit-app-region: no-drag;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 20%;
-}
-
-
-
-
-
-
-
-.section-icon__logo {
-    width: 22px;
-    padding-left: 5px
-}
-
-.section-icon__title {
-    padding-left: 5px;
-    font-size: 11px;
-}
-
-.section-menubar_button {
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: purple;
+  -webkit-app-region: no-drag;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 20%;
 }
