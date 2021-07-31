@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CHANGE_PAGES, IAppPagesAction } from './services/redux/actions/app-pages/app-pages.interface';
 import { IPage, PageAccessEnum } from './services/redux/states/app-pages.state';
 import { RootState } from './services/redux/store';
+import { ToolBar } from './components/tool-bar';
 
 export const App: React.FC = () => {
     const pages: IPage[] = [
@@ -49,6 +50,7 @@ export const App: React.FC = () => {
     return (
         <div className="mainApp">
             <TitleBar />
+            <ToolBar />
             <Router>
                 <Switch>
                     <Route exact path="/">
