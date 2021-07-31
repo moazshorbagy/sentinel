@@ -29,6 +29,8 @@ const createWindow = (): void => {
         minWidth: 940,
         frame: false,
         center: true,
+        show: false,
+
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -36,10 +38,17 @@ const createWindow = (): void => {
         },
     });
 
+    // start maximized. if you wish to remove the following line
+    // you should also change the initial state of isMaximized
+    // in the title-bar component to false
+    mainWindow.maximize();
+
     // and load the index.html of the app.
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
     registerWindowListeners(mainWindow);
+    
+    mainWindow.show();
 
     mainWindow.on('closed', () => {
         mainWindow = null;

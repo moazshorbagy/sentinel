@@ -16,7 +16,7 @@ export class TitleBar extends Component<Record<string, never>, TitleBarState> {
 
     constructor(props: Record<string, never>) {
         super(props);
-        this.state = { isMaximized: false };
+        this.state = { isMaximized: true };
     }
 
     componentDidMount(): void {
