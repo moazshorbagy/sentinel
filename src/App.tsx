@@ -41,7 +41,7 @@ export const App: React.FC = () => {
         const initialPagesAction: IAppPagesAction = {
             type: CHANGE_PAGES,
             pages: pages
-        }
+        };
         dispatch(initialPagesAction);
     }, []);
 

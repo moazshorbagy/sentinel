@@ -1,4 +1,4 @@
-import { IPage } from "../../states/app-pages.state";
+import { IPage } from '../../states/app-pages.state';
 
 export const CHANGE_PAGES = 'CHANGE PAGES';
 

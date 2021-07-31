@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 declare module 'axios' {
-    interface AxiosResponse<T = any> extends Promise<T> { }
+    type AxiosResponse<T = any> = Promise<T>
 }
 
 export abstract class WebClient {
