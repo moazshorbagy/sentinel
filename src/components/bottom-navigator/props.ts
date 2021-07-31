@@ -1,9 +1,5 @@
-export interface IBottomNavigatorProps {
-    pages: IPageRoute[];
-}
+import { IPage } from "../../services/redux/states/app-pages.state";
 
-export interface IPageRoute {
-    url: string;
-    name: string;
-    key: number;
+export interface IBottomNavigatorProps {
+    pages: IPage[];
 }

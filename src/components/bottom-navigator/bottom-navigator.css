@@ -1,36 +1,33 @@
-.navigator-button {
-    background-color: rgb(93, 192, 250);
-    padding: 6px;
-    padding-top: 0;
-    font-size: 12pt;
-    border-radius: 4px;
-    border: 1px solid rgb(53, 141, 192);
-    text-decoration: none;
+.bottom-navigator {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 40px;
 }
 
-.navigator-button-text {
-    font-weight: 300;
-    color: white;
+.navigator-btn {
+  padding: 0 12px;
+  border: none;
+  text-decoration: none;
 }
 
-
-.focused-navigator-button {
-    background-color: blue;
+.navigator-btn-text {
+  color: black;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* #region that is affected by the curvature of the application window */
-.leftmost-navigator-button {
-    border-bottom-left-radius: 12px;
+.navigation-btn-container {
+  display: flex;
+  justify-content: center;
 }
-/* #endregion */
 
-.bottom-navigator-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    background-color: rgb(93, 192, 250);
-    height: 48px;
+.separator {
+  height: 100%;
+  width: 1px;
 }
