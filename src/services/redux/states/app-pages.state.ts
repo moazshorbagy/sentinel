@@ -3,8 +3,8 @@ export interface IAppPagesState {
 }
 
 export enum PageAccessEnum {
-    PUBLIC = "PUBLIC",
-    PRIVATE = "PRIVATE"
+    PUBLIC = 'PUBLIC',
+    PRIVATE = 'PRIVATE'
 }
 
 export interface IPage {
