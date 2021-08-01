@@ -6,6 +6,7 @@
   left: 0;
   bottom: 0;
   height: 40px;
+  background-color: var(--p-dark);
 }
 
 .navigator-btn {
@@ -14,8 +15,16 @@
   text-decoration: none;
 }
 
+.navigator-btn-active {
+  background-color: var(--primary);
+}
+
+.navigator-btn-inactive:hover {
+  background-color: var(--p-dim);
+}
+
 .navigator-btn-text {
-  color: black;
+  color: white;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -30,4 +39,5 @@
 .separator {
   height: 100%;
   width: 1px;
+  background-color: var(--p-dark);
 }

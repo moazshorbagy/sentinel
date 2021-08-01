@@ -7,6 +7,7 @@
   flex-direction: row;
   user-select: none;
   -webkit-user-select: none;
+  background-color: var(--primary);
 }
 
 .title-bar-drag-region {
@@ -34,6 +35,7 @@
   flex-direction: row;
   align-items: center;
   width: 135px;
+  color: white;
   /*background-color: rgb(49, 14, 248);*/
 }
 
@@ -49,6 +51,7 @@
   width: 100%;
   text-align: center;
   margin: auto;
+  color: white;
 }
 
 .title-bar-windows-controls {
@@ -90,7 +93,7 @@
 .minimize-logo:hover,
 .maximize-logo:hover,
 .unmaximize-logo:hover {
-  background-color: #004ecb;
+  background-color: var(--p-light);
 }
 
 .close-logo:hover {

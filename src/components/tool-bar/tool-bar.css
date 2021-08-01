@@ -2,8 +2,10 @@
   display: flex;
   margin: 0;
   padding: 0;
-  background-color: #75a7ff;
+  background-color: var(--primary);
   align-items: center;
+  height: 62px;
+  user-select: none;
 }
 
 .icon-btn-container {
@@ -21,7 +23,7 @@
 }
 
 .icon-btn-container:hover {
-  background-color: #2979ff;
+  background-color: var(--p-light);
 }
 
 .icon-btn-container > div > p {

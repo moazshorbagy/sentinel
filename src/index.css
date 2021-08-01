@@ -6,28 +6,14 @@ body {
   padding: 0;
 }
 
-.primary {
-  background-color: #2979ff;
-}
-
-.p-light {
-  background-color: #75a7ff;
-}
-
-.p-dark {
-  background-color: #004ecb;
-}
-
-.secondary {
-  background-color: #f5f5f5;
-}
-
-.s-light {
-  background-color: #ffffff;
-}
-
-.s-dark {
-  background-color: #e1e1e1;
+:root {
+  --primary: #2979ff;
+  --p-light: #75a7ff;
+  --p-dim: #0062ff;
+  --p-dark: #004ecb;
+  --secondary: #f5f5f5;
+  --s-light: #ffffff;
+  --s-dark: #e1e1e1;
 }
 
 p {
