@@ -1,0 +1,4 @@
+.product-mix {
+  height: calc(100% - 30px - 62px - 40px);
+  background-color: var(--s-dark);
+}
