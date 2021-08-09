@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import { useDispatch } from 'react-redux';
+import { Table } from '../../components/table';
 import { AuthActions } from '../../services/redux/actions/authentication/auth.actions';
 
 export const LoginPage: React.FC = () => {
@@ -26,13 +27,7 @@ export const LoginPage: React.FC = () => {
 
     return (
         <div>
-            <form>
-                Username: <input type="text" value={username} onChange={usernameChangeListener}/>
-                <br/>
-                Password: <input type="password" value={password} onChange={passwordChangeListener} />
-                <br/>
-                <button onClick={onSubmit}>Login</button>
-            </form>
+            <Table/>
         </div>
     );
 };

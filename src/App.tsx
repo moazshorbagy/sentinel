@@ -23,15 +23,9 @@ export const App: React.FC = () => {
     const pages: IPage[] = [
         {
             accessType: PageAccessEnum.PUBLIC,
-            url: '/login',
-            name: 'Login Page',
+            url: '/product-mix',
+            name: 'Product Mix',
             key: 0,
-        },
-        {
-            accessType: PageAccessEnum.PRIVATE,
-            url: '/test-page',
-            name: 'Protected Page',
-            key: 2,
         },
     ];
 
