@@ -1,1 +1,1 @@
-# effective-finance
+# sentinel
