@@ -1,4 +1,4 @@
-import { LandAreaDivision } from "../../states/product-mix.state";
+import { BuildingsDefinition, LandAreaDivision } from "../../states/product-mix.state";
 
 export const getLandDivisionIndexByName = (areaDivisions: LandAreaDivision[], areaDivisionName: string) => {
     return areaDivisions.map(division => division.name).indexOf(areaDivisionName);
@@ -34,6 +34,10 @@ export const getAreaInMeterSquare = (value: number, totalArea: number, type: Mea
 
 const sum = (a: number, b: number): number => {
     return a + b;
+}
+
+export const buildingNameExists = (buildings: BuildingsDefinition[], name: string) => {
+    return buildings.map(building => building.name).indexOf(name) !== -1;
 }
 
 export enum MeasuringUnit {

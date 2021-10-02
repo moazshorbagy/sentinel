@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { RootState, store } from "../../store";
-import { CREATE_AREA_DIVISION, InitializeLandAreaAction, INITIALIZE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION } from "./product-mix-actions.interface";
-import { getAreaInMeterSquare, getLandDivisionIndexByName, getLandDivisionsTotalOccupiedArea, MeasuringUnit } from "./utils";
+import { CREATE_AREA_DIVISION, CREATE_BUILDING, InitializeLandAreaAction, INITIALIZE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION } from "./product-mix-actions.interface";
+import { buildingNameExists, getAreaInMeterSquare, getLandDivisionIndexByName, getLandDivisionsTotalOccupiedArea, MeasuringUnit } from "./utils";
 
 export class ProductMixActions {
     public initializeLandArea = (totalArea: number): ThunkAction<void, RootState, null, ProductMixAction> => {
@@ -68,6 +68,22 @@ export class ProductMixActions {
 
                 // dispatch action
                 dispatch({ type: UPDATE_AREA_DIVISION, name, area });
+
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
+
+    public createBuildingAction = (name: string, footprint: number): ThunkAction<void, RootState, null, ProductMixAction> => {
+        return async dispatch => {
+            try {
+                // check if building name exists
+                if (!buildingNameExists(store.getState().productMix.buildings, name)) {
+                    throw Error(`building name (${name}) already exists`);
+                }
+
+                dispatch({ type: CREATE_BUILDING, name, footprint });
 
             } catch (e) {
                 console.log(e);
