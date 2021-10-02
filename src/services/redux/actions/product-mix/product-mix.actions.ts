@@ -2,6 +2,7 @@ import { ThunkAction } from "redux-thunk";
 import { LandAreaDivision } from "../../states/product-mix.state";
 import { RootState, store } from "../../store";
 import { CREATE_AREA_DIVISION, InitializeLandAreaAction, INITIALIZE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION } from "./product-mix-actions.interface";
+import { getAreaInMeterSquare, getLandDivisionIndexByName, getLandDivisionsTotalOccupiedArea, MeasuringUnit } from "./utils";
 
 export class ProductMixActions {
     public initializeLandArea = (totalArea: number): ThunkAction<void, RootState, null, ProductMixAction> => {
@@ -77,46 +78,3 @@ export class ProductMixActions {
         }
     }
 }
-
-const getLandDivisionIndexByName = (areaDivisions: LandAreaDivision[], areaDivisionName: string) => {
-    return areaDivisions.map(division => division.name).indexOf(areaDivisionName);
-}
-
-// area in the store is always in square meter
-const getLandDivisionsTotalOccupiedArea = (areaDivisions: LandAreaDivision[]): number => {
-    return areaDivisions.map(division => division.area).reduce(sum, 0);
-}
-
-const convertFeddanToMeterSquare = (area: number): number => {
-    return area * 4200;
-}
-
-const convertPercentageToMeterSquare = (totalArea: number, areaPercentage: number) => {
-    return totalArea * areaPercentage / 100;
-}
-
-const getAreaInMeterSquare = (value: number, totalArea: number, type: MeasuringUnit): number => {
-    switch (type) {
-        case MeasuringUnit.PRCNTG: {
-            return convertPercentageToMeterSquare(totalArea, value);
-        }
-        case MeasuringUnit.FDN: {
-            return convertFeddanToMeterSquare(value);
-        }
-        case MeasuringUnit.SQM: {
-            return value;
-        }
-        default: throw Error(`Invalid measuring unit ${type}`);
-    }
-}
-
-const sum = (a: number, b: number): number => {
-    return a + b;
-}
-
-enum MeasuringUnit {
-    SQM,
-    FDN,
-    PRCNTG
-}
-
