@@ -26,7 +26,7 @@ export const ADD_BUILDING_UNIT = 'ADD_BUILDING_UNIT';
 
 export interface InitializeLandAreaAction {
     type: typeof INITIALIZE_LAND_AREA;
-    
+
     // in square meter
     totalArea: number;
 }
@@ -35,8 +35,8 @@ export interface CreateAreaDivisionAction {
     type: typeof CREATE_AREA_DIVISION;
     name: string;
 
-    // area is a percentage of total area
-    areaPercentage: number;
+    // area value
+    area: number;
 }
 
 export interface UpdateAreaDivisionAction {
@@ -45,5 +45,11 @@ export interface UpdateAreaDivisionAction {
     area: number;
 }
 
+export interface CreateBuildingAction {
+    type: typeof CREATE_BUILDING;
 
-export type ProductMixAction = InitializeLandAreaAction | CreateAreaDivisionAction | UpdateAreaDivisionAction;
+    name: string;
+    footprint: number;
+}
+
+export type ProductMixAction = InitializeLandAreaAction | CreateAreaDivisionAction | UpdateAreaDivisionAction | CreateBuildingAction;

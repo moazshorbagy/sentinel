@@ -18,13 +18,13 @@ export interface LandAreaDivisionPlanning {
     /**
      * The sum of land area divisions must be equal to the total land area
      */
-    landAreaDivisions: landAreaDivision[];
+    landAreaDivisions: LandAreaDivision[];
 }
 
 /**
  * E.g: residential area 
  */
-export interface landAreaDivision {
+export interface LandAreaDivision {
     name: string;
     area: number;
 }
