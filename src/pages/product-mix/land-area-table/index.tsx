@@ -3,6 +3,10 @@ import { DropdownList } from '../../../components/dropdown-list';
 import { TextField } from '@mui/material';
 import "./land-area-tables.css";
 
+function numberWithCommas(x: number): string {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 const round = (value: number, precision: number): number => {
     return +value.toFixed(precision);
 }
@@ -74,7 +78,7 @@ export const LandAreaTables: React.FC = () => {
                     </tr>
                     <tr>
                         <td>{totalType == measuringUnits.FED ? measuringUnits.SQM : measuringUnits.FED}</td>
-                        <td>{totalType == measuringUnits.FED ? fedToSqm(totalArea) : sqmToFed(totalArea)}</td>
+                        <td>{numberWithCommas(totalType == measuringUnits.FED ? fedToSqm(totalArea) : sqmToFed(totalArea))}</td>
                     </tr>
                 </tbody>
             </table>
