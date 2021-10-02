@@ -1,7 +1,7 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Table } from '../../components/table';
 import { AuthActions } from '../../services/redux/actions/authentication/auth.actions';
+import { ProductMixPage } from '../product-mix';
 
 export const LoginPage: React.FC = () => {
 
@@ -17,7 +17,7 @@ export const LoginPage: React.FC = () => {
         setPassword(e.target.value);
     };
 
-    
+
     console.log(location.href);
 
     const onSubmit = () => {
@@ -27,7 +27,7 @@ export const LoginPage: React.FC = () => {
 
     return (
         <div>
-            <Table/>
+            <ProductMixPage />
         </div>
     );
 };
