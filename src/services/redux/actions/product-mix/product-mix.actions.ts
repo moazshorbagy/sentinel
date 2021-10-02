@@ -1,5 +1,4 @@
 import { ThunkAction } from "redux-thunk";
-import { LandAreaDivision } from "../../states/product-mix.state";
 import { RootState, store } from "../../store";
 import { CREATE_AREA_DIVISION, InitializeLandAreaAction, INITIALIZE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION } from "./product-mix-actions.interface";
 import { getAreaInMeterSquare, getLandDivisionIndexByName, getLandDivisionsTotalOccupiedArea, MeasuringUnit } from "./utils";
@@ -9,7 +8,6 @@ export class ProductMixActions {
         return async dispatch => {
             try {
                 let state = store.getState().productMix.landAreaDivision.totalArea;
-                console.log(state);
                 // init total area for project
                 const action: InitializeLandAreaAction = {
                     type: INITIALIZE_LAND_AREA,
@@ -19,7 +17,6 @@ export class ProductMixActions {
                 dispatch(action);
 
                 state = store.getState().productMix.landAreaDivision.totalArea;
-                console.log(state);
             } catch (e) {
                 console.log(e);
             }
