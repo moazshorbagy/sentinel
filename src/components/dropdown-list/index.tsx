@@ -1,8 +1,7 @@
 import React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-
-import { measuringUnits } from '../../pages/product-mix/land-area-table';
+import { measuringUnits } from '../../services/utils/measuring-unit';
 
 type Props = {
     list: measuringUnits[];
