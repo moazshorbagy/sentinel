@@ -20,3 +20,8 @@ export const toPercentage = (a: number, b: number): number => {
 export const fromPercentage = (total: number, percentage: number): number => {
     return total * percentage / 100;
 }
+
+
+export function numberWithCommas(x: number): string {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

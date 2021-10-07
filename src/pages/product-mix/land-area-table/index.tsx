@@ -2,52 +2,36 @@ import React, { useEffect } from 'react';
 import { DropdownList } from '../../../components/dropdown-list';
 import "./land-area-tables.css";
 import { ProductMixActions } from '../../../services/redux/actions/product-mix/product-mix.actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { measuringUnits } from '../../../services/utils/measuring-unit';
-import { fedToSqm, sqmToFed, toPercentage } from '../../../services/utils/measuring-units-converter';
+import { fedToSqm, numberWithCommas, sqmToFed } from '../../../services/utils/measuring-units-converter';
+import { RootState } from '../../../services/redux/store';
+import { LandDivisionItemComponent } from '../land-division-item';
 
 const productMixActions = new ProductMixActions();
-
-function numberWithCommas(x: number): string {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 
 export const LandAreaTables: React.FC = () => {
 
     const dispatch = useDispatch();
 
-    const [totalType, setTotalType] = React.useState(measuringUnits.FED);
-    const [resedentialType, setResedentialType] = React.useState(measuringUnits.PER);
-    const [nonResedentialType, setNonResedentialType] = React.useState(measuringUnits.PER);
+    useEffect(() => {
+        dispatch(productMixActions.changeLandArea(1680000, measuringUnits.SQM));
+        dispatch(productMixActions.createLandAreaDivision('Residential Land', 34, measuringUnits.PER));
+        dispatch(productMixActions.createLandAreaDivision('Non-Residential Land', 33, measuringUnits.PER));
+        dispatch(productMixActions.createLandAreaDivision('Roads & Lanscape', 33, measuringUnits.PER));
+    }, []);
 
-    const [totalArea, setTotalArea] = React.useState(0);
+    const [totalType, setTotalType] = React.useState(measuringUnits.SQM);
+
+    const {landAreaDivisions, totalArea} = useSelector((rootState: RootState) => rootState.productMix.landAreaDivision);
+
+    const [totalLandArea, setTotalArea] = React.useState(1680000);
 
     const totalTypes = [measuringUnits.FED, measuringUnits.SQM];
-    const otherTypes = [measuringUnits.FED, measuringUnits.SQM, measuringUnits.PER];
 
     const totalAreaListener = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTotalArea(+event.target.value);
-        console.log(totalType);
         dispatch(productMixActions.changeLandArea(+event.target.value, totalType));
-    }
-
-    const landAreaDivision = {
-        totalArea: 1680000,
-        landAreaDivisions: [
-            {
-                name: 'Residential Land',
-                area: 840000
-            },
-            {
-                name: 'Non-Residential Land',
-                area: 201600
-            },
-            {
-                name: 'Roads & Lanscape',
-                area: 638400
-            }
-        ]
     }
 
     return (
@@ -58,7 +42,7 @@ export const LandAreaTables: React.FC = () => {
                     <tr>
                         <td className="p-0">
                             <DropdownList list={totalTypes} value={totalType} setValue={setTotalType} /></td>
-                        <td className="p-0"><input className="number-input" type="number" onChange={totalAreaListener} value={totalArea} /></td>
+                        <td className="p-0"><input className="number-input" type="number" onChange={totalAreaListener} value={totalLandArea}/></td>
                     </tr>
                     <tr>
                         <td>{totalType == measuringUnits.FED ? measuringUnits.SQM : measuringUnits.FED}</td>
@@ -66,27 +50,9 @@ export const LandAreaTables: React.FC = () => {
                     </tr>
                 </tbody>
             </table>
-            {landAreaDivision.landAreaDivisions.map(landArea => {
+            {landAreaDivisions.map(landArea => {
                 return (
-                    <div className="pl4" key={landArea.name}>
-                        <table>
-                            <tbody>
-                                <tr><th colSpan={2}>{landArea.name}</th></tr>
-                                <tr>
-                                    <td>%</td>
-                                    <td>{toPercentage(landAreaDivision.totalArea, landArea.area)}%</td>
-                                </tr>
-                                <tr>
-                                    <td>fed</td>
-                                    <td>{sqmToFed(landArea.area)}</td>
-                                </tr>
-                                <tr>
-                                    <td>sqm</td>
-                                    <td>{landArea.area}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <LandDivisionItemComponent landArea={landArea} />
                 );
             })}
 

@@ -35,9 +35,9 @@ export class ProductMixActions {
                 // get area in meter squaree
                 area = getAreaInMeterSquare(area, totalLandArea, type);
 
-                if (area > remainingArea) {
-                    throw Error(`Area (${area}) should be smaller than remaining area (${remainingArea})`);
-                }
+                // if (area > remainingArea) {
+                //     throw Error(`Area (${area}) should be smaller than remaining area (${remainingArea})`);
+                // }
 
                 // dispatch action
                 dispatch({ type: CREATE_AREA_DIVISION, name, area });
@@ -62,9 +62,9 @@ export class ProductMixActions {
                 // get area in meter square
                 area = getAreaInMeterSquare(area, totalLandArea, type);
 
-                if (area > remainingArea) {
-                    throw Error(`Area (${area}) should be smaller than remaining area (${remainingArea})`);
-                }
+                // if (area > remainingArea) {
+                //     throw Error(`Area (${area}) should be smaller than remaining area (${remainingArea})`);
+                // }
 
                 // dispatch action
                 dispatch({ type: UPDATE_AREA_DIVISION, name, area });
