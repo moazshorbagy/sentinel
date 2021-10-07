@@ -8,6 +8,11 @@ import { fedToSqm, sqmToFed, toPercentage } from '../../../services/utils/measur
 
 const productMixActions = new ProductMixActions();
 
+function numberWithCommas(x: number): string {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
 export const LandAreaTables: React.FC = () => {
 
     const dispatch = useDispatch();
@@ -57,7 +62,7 @@ export const LandAreaTables: React.FC = () => {
                     </tr>
                     <tr>
                         <td>{totalType == measuringUnits.FED ? measuringUnits.SQM : measuringUnits.FED}</td>
-                        <td>{totalType == measuringUnits.FED ? fedToSqm(totalArea) : sqmToFed(totalArea)}</td>
+                        <td>{numberWithCommas(totalType == measuringUnits.FED ? fedToSqm(totalArea) : sqmToFed(totalArea))}</td>
                     </tr>
                 </tbody>
             </table>
