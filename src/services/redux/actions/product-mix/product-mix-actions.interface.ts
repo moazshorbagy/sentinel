@@ -5,7 +5,7 @@
 /**
  * Create, Update, Delete area division. E.g: residential area (a portion of the total land area)
  */
-export const INITIALIZE_LAND_AREA = 'INITIALIZE_LAND_AREA';
+export const UPDATE_LAND_AREA = 'INITIALIZE_LAND_AREA';
 export const CREATE_AREA_DIVISION = 'CREATE_AREA_DIVISION';
 export const UPDATE_AREA_DIVISION = 'UPDATE_AREA_DIVISION';
 // not crucial
@@ -25,7 +25,7 @@ const DELETE_BUILDING = 'DELETE_BUILDING';
 export const ADD_BUILDING_UNIT = 'ADD_BUILDING_UNIT';
 
 export interface InitializeLandAreaAction {
-    type: typeof INITIALIZE_LAND_AREA;
+    type: typeof UPDATE_LAND_AREA;
 
     // in square meter
     totalArea: number;

@@ -1,3 +1,5 @@
+import { fedToSqm, fromPercentage } from "../../../../services/utils/measuring-units-converter";
+import { measuringUnits } from "../../../../services/utils/measuring-unit";
 import { BuildingsDefinition, LandAreaDivision } from "../../states/product-mix.state";
 
 export const getLandDivisionIndexByName = (areaDivisions: LandAreaDivision[], areaDivisionName: string) => {
@@ -9,23 +11,15 @@ export const getLandDivisionsTotalOccupiedArea = (areaDivisions: LandAreaDivisio
     return areaDivisions.map(division => division.area).reduce(sum, 0);
 }
 
-export const convertFeddanToMeterSquare = (area: number): number => {
-    return area * 4200;
-}
-
-export const convertPercentageToMeterSquare = (totalArea: number, areaPercentage: number) => {
-    return totalArea * areaPercentage / 100;
-}
-
-export const getAreaInMeterSquare = (value: number, totalArea: number, type: MeasuringUnit): number => {
+export const getAreaInMeterSquare = (value: number, totalArea: number, type: measuringUnits): number => {
     switch (type) {
-        case MeasuringUnit.PRCNTG: {
-            return convertPercentageToMeterSquare(totalArea, value);
+        case measuringUnits.PER: {
+            return fromPercentage(totalArea, value);
         }
-        case MeasuringUnit.FDN: {
-            return convertFeddanToMeterSquare(value);
+        case measuringUnits.FED: {
+            return fedToSqm(value);
         }
-        case MeasuringUnit.SQM: {
+        case measuringUnits.SQM: {
             return value;
         }
         default: throw Error(`Invalid measuring unit ${type}`);
@@ -38,10 +32,4 @@ const sum = (a: number, b: number): number => {
 
 export const buildingNameExists = (buildings: BuildingsDefinition[], name: string) => {
     return buildings.map(building => building.name).indexOf(name) !== -1;
-}
-
-export enum MeasuringUnit {
-    SQM,
-    FDN,
-    PRCNTG
 }

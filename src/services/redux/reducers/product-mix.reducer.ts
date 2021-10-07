@@ -1,4 +1,4 @@
-import { CreateAreaDivisionAction, CREATE_AREA_DIVISION, INITIALIZE_LAND_AREA, ProductMixAction, UpdateAreaDivisionAction, UPDATE_AREA_DIVISION } from "../actions/product-mix/product-mix-actions.interface";
+import { CreateAreaDivisionAction, CREATE_AREA_DIVISION, UPDATE_LAND_AREA, ProductMixAction, UpdateAreaDivisionAction, UPDATE_AREA_DIVISION } from "../actions/product-mix/product-mix-actions.interface";
 import { LandAreaDivision, LandAreaDivisionPlanning, ProductMixState } from "../states/product-mix.state";
 
 const intitalState: ProductMixState = {
@@ -11,7 +11,7 @@ const intitalState: ProductMixState = {
 
 export const productMixReducer = (prevState = intitalState, action: ProductMixAction): ProductMixState => {
     switch (action.type) {
-        case INITIALIZE_LAND_AREA: {
+        case UPDATE_LAND_AREA: {
             let landAreaDivision = prevState.landAreaDivision;
             landAreaDivision.totalArea = action.totalArea;
             return {

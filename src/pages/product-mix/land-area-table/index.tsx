@@ -1,35 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DropdownList } from '../../../components/dropdown-list';
-import { TextField } from '@mui/material';
 import "./land-area-tables.css";
+import { ProductMixActions } from '../../../services/redux/actions/product-mix/product-mix.actions';
+import { useDispatch } from 'react-redux';
+import { measuringUnits } from '../../../services/utils/measuring-unit';
+import { fedToSqm, sqmToFed, toPercentage } from '../../../services/utils/measuring-units-converter';
 
-const round = (value: number, precision: number): number => {
-    return +value.toFixed(precision);
-}
-
-const sqmToFed = (sqm: number): number => {
-    return round(sqm / 4200, 2);;
-}
-
-const fedToSqm = (fed: number): number => {
-    return fed * 4200;
-}
-
-const toPercentage = (a: number, b: number): number => {
-    return round(b / a * 100, 2);
-}
-
-const fromPercentage = (total: number, percentage: number): number => {
-    return total * percentage / 100;
-}
-
-export enum measuringUnits {
-    FED = 'fed',
-    SQM = 'sqm',
-    PER = '%'
-}
+const productMixActions = new ProductMixActions();
 
 export const LandAreaTables: React.FC = () => {
+
+    const dispatch = useDispatch();
 
     const [totalType, setTotalType] = React.useState(measuringUnits.FED);
     const [resedentialType, setResedentialType] = React.useState(measuringUnits.PER);
@@ -42,6 +23,8 @@ export const LandAreaTables: React.FC = () => {
 
     const totalAreaListener = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTotalArea(+event.target.value);
+        console.log(totalType);
+        dispatch(productMixActions.changeLandArea(+event.target.value, totalType));
     }
 
     const landAreaDivision = {

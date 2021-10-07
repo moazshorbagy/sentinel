@@ -1,29 +1,29 @@
 import { ThunkAction } from "redux-thunk";
+import { measuringUnits } from "../../../../services/utils/measuring-unit";
 import { RootState, store } from "../../store";
-import { CREATE_AREA_DIVISION, CREATE_BUILDING, InitializeLandAreaAction, INITIALIZE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION } from "./product-mix-actions.interface";
-import { buildingNameExists, getAreaInMeterSquare, getLandDivisionIndexByName, getLandDivisionsTotalOccupiedArea, MeasuringUnit } from "./utils";
+import { CREATE_AREA_DIVISION, CREATE_BUILDING, InitializeLandAreaAction, UPDATE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION } from "./product-mix-actions.interface";
+import { buildingNameExists, getAreaInMeterSquare, getLandDivisionIndexByName, getLandDivisionsTotalOccupiedArea } from "./utils";
 
 export class ProductMixActions {
-    public initializeLandArea = (totalArea: number): ThunkAction<void, RootState, null, ProductMixAction> => {
+    public changeLandArea = (totalArea: number, measuringUnit: measuringUnits): ThunkAction<void, RootState, null, ProductMixAction> => {
         return async dispatch => {
             try {
-                let state = store.getState().productMix.landAreaDivision.totalArea;
+                let landArea = store.getState().productMix.landAreaDivision.totalArea;
+                // get area in meter squaree
+                const area = getAreaInMeterSquare(totalArea, landArea, measuringUnit);
                 // init total area for project
                 const action: InitializeLandAreaAction = {
-                    type: INITIALIZE_LAND_AREA,
-                    totalArea: totalArea
+                    type: UPDATE_LAND_AREA,
+                    totalArea: area
                 };
-
                 dispatch(action);
-
-                state = store.getState().productMix.landAreaDivision.totalArea;
             } catch (e) {
                 console.log(e);
             }
         }
     }
 
-    public createLandAreaDivision = (name: string, area: number, type: MeasuringUnit): ThunkAction<void, RootState, null, ProductMixAction> => {
+    public createLandAreaDivision = (name: string, area: number, type: measuringUnits): ThunkAction<void, RootState, null, ProductMixAction> => {
         return async dispatch => {
             try {
                 const totalLandArea = store.getState().productMix.landAreaDivision.totalArea;
@@ -47,7 +47,7 @@ export class ProductMixActions {
         }
     }
 
-    public updateLandAreaDivision = (name: string, area: number, type: MeasuringUnit): ThunkAction<void, RootState, null, ProductMixAction> => {
+    public updateLandAreaDivision = (name: string, area: number, type: measuringUnits): ThunkAction<void, RootState, null, ProductMixAction> => {
         return async dispatch => {
             try {
                 const totalLandArea = store.getState().productMix.landAreaDivision.totalArea;
