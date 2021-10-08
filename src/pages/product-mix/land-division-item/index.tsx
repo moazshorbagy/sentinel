@@ -59,12 +59,10 @@ export const LandDivisionItemComponent: React.FC<LandAreaItemProps> = (
   useEffect(() => {
     store.subscribe(
       totalAreaWatcher((newVal: number, oldVal, objPath) => {
-        if (unit == measuringUnits.PER) {
-          setValue(updateAreaInputValue(unit, areaInSQM, newVal));
-        }
+        setValue(updateAreaInputValue(unit, areaInSQM, newVal));
       })
     );
-  }, []);
+  }, [unit]);
 
   const setUnitHandler = (unit: measuringUnits) => {
     setUnit(unit);
@@ -103,7 +101,7 @@ export const LandDivisionItemComponent: React.FC<LandAreaItemProps> = (
   };
 
   return (
-    <div className="pl4" key={props.landArea.name}>
+    // <div key={props.landArea.name}>
       <table>
         <tbody>
           <tr>
@@ -144,6 +142,6 @@ export const LandDivisionItemComponent: React.FC<LandAreaItemProps> = (
           })}
         </tbody>
       </table>
-    </div>
+    // </div>
   );
 };
