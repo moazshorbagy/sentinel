@@ -53,11 +53,11 @@ export class ProductMixActions {
                 const totalLandArea = store.getState().productMix.landAreaDivision.totalArea;
                 const areaDivisions = store.getState().productMix.landAreaDivision.landAreaDivisions;
 
-                // get and remove area division to insert the same division with different area
-                const areaDivisionIndex = getLandDivisionIndexByName(areaDivisions, name);
+                ///// get and remove area division to insert the same division with different area
+                // const areaDivisionIndex = getLandDivisionIndexByName(areaDivisions, name);
 
-                // get remaining land area without current area to be changed
-                const remainingArea = totalLandArea - getLandDivisionsTotalOccupiedArea(areaDivisions.splice(areaDivisionIndex, 1));
+                ///// get remaining land area without current area to be changed
+                // const remainingArea = totalLandArea - getLandDivisionsTotalOccupiedArea(areaDivisions.splice(areaDivisionIndex, 1));
 
                 // get area in meter square
                 area = getAreaInMeterSquare(area, totalLandArea, type);

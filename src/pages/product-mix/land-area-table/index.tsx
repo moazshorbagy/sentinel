@@ -34,6 +34,17 @@ export const LandAreaTables: React.FC = () => {
         dispatch(productMixActions.changeLandArea(+event.target.value, totalType));
     }
 
+    const totalTypeChangeHandler = (unit: measuringUnits) => {
+        setTotalType(unit);
+        switch(unit) {
+            case measuringUnits.FED: 
+                setTotalArea(sqmToFed(totalArea));
+                break;
+            default:
+                setTotalArea(totalArea);
+        }
+    }
+
     return (
         <div className="land-area-container">
             <table>
@@ -41,18 +52,18 @@ export const LandAreaTables: React.FC = () => {
                     <tr><th colSpan={2}>{'Land Area'}</th></tr>
                     <tr>
                         <td className="p-0">
-                            <DropdownList list={totalTypes} value={totalType} setValue={setTotalType} /></td>
+                            <DropdownList list={totalTypes} value={totalType} setValue={totalTypeChangeHandler} /></td>
                         <td className="p-0"><input className="number-input" type="number" onChange={totalAreaListener} value={totalLandArea}/></td>
                     </tr>
                     <tr>
                         <td>{totalType == measuringUnits.FED ? measuringUnits.SQM : measuringUnits.FED}</td>
-                        <td>{numberWithCommas(totalType == measuringUnits.FED ? fedToSqm(totalArea) : sqmToFed(totalArea))}</td>
+                        <td>{numberWithCommas(totalType == measuringUnits.FED ? fedToSqm(totalLandArea) : sqmToFed(totalLandArea))}</td>
                     </tr>
                 </tbody>
             </table>
             {landAreaDivisions.map(landArea => {
                 return (
-                    <LandDivisionItemComponent landArea={landArea} />
+                    <LandDivisionItemComponent key={landArea.name} landArea={landArea} />
                 );
             })}
 
