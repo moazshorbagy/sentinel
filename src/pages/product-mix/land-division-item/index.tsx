@@ -56,13 +56,22 @@ export const LandDivisionItemComponent: React.FC<LandAreaItemProps> = (
     (a, b) => a == b
   );
 
+
+  let initialValue =
+    unit == measuringUnits.PER
+      ? toPercentage(totalArea, props.landArea.area)
+      : unit == measuringUnits.FED
+      ? sqmToFed(props.landArea.area)
+      : props.landArea.area;
+  const [value, setValue] = useState(initialValue);
+
   useEffect(() => {
     store.subscribe(
       totalAreaWatcher((newVal: number, oldVal, objPath) => {
         setValue(updateAreaInputValue(unit, areaInSQM, newVal));
       })
     );
-  }, [unit]);
+  }, [unit, value]);
 
   const setUnitHandler = (unit: measuringUnits) => {
     setUnit(unit);
@@ -72,21 +81,12 @@ export const LandDivisionItemComponent: React.FC<LandAreaItemProps> = (
     setValue(updateAreaInputValue(unit, areaInSQM, totalArea));
   };
 
-  let initialValue =
-    unit == measuringUnits.PER
-      ? toPercentage(totalArea, props.landArea.area)
-      : unit == measuringUnits.FED
-      ? sqmToFed(props.landArea.area)
-      : props.landArea.area;
-
   const areaInSQM = useSelector(
     (rootState: RootState) =>
       rootState.productMix.landAreaDivision.landAreaDivisions.find(
         (div) => div.name === props.landArea.name
       ).area
   );
-
-  const [value, setValue] = useState(initialValue);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
