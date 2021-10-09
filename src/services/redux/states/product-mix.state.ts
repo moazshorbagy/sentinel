@@ -4,7 +4,7 @@
 
 export interface ProductMixState {
     landAreaDivision: LandAreaDivisionPlanning;
-    buildings: BuildingsDefinition[];
+    buildings: BuildingDefinition[];
 }
 
 /**
@@ -33,25 +33,27 @@ export interface LandAreaDivision {
  * A building can have more than buidling unit
  * E.g: a tower can have: offices, retail, mixed-use
  */
-export interface BuildingsDefinition {
+export interface BuildingDefinition {
+    // to identify buildings
+    id: number;
     name: string;
 
     /**
      * The area allocated for this building
      */
     footprint: number;
-    buildingBuiltUpArea: number;
+    buildingBuiltUpArea?: number;
     buildingUnits: BuildingUnitsDefinition[];
-    numberOfFloors: number;
+    numberOfFloors?: number;
 
     /**
      * sellable area efficiency (%) = totalBuiltUpArea / totalSellableArea * 100 %
      */
-    totalBuildingBuiltUpArea: number;
-    totalSellableArea: number;
-    sellableAreaEfficiency: number;
+    totalBuildingBuiltUpArea?: number;
+    totalSellableArea?: number;
+    sellableAreaEfficiency?: number;
 
-    parkingAreaDefinition: ParkingAreaDefinition;
+    parkingAreaDefinition?: ParkingAreaDefinition;
 }
 
 /**
