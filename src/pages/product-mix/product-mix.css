@@ -1,2 +1,6 @@
-
+.detailed-tables-container {
+    grid-template-columns: 20% auto auto;
+    display: grid;
+    column-gap: 16px;
+}
 
