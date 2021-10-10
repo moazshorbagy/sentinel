@@ -1,5 +1,5 @@
-import { CreateAreaDivisionAction, CREATE_AREA_DIVISION, UPDATE_LAND_AREA, ProductMixAction, UpdateAreaDivisionAction, UPDATE_AREA_DIVISION } from "../actions/product-mix/product-mix-actions.interface";
-import { LandAreaDivision, LandAreaDivisionPlanning, ProductMixState } from "../states/product-mix.state";
+import { CreateAreaDivisionAction, CREATE_AREA_DIVISION, UPDATE_LAND_AREA, ProductMixAction, UpdateAreaDivisionAction, UPDATE_AREA_DIVISION, CREATE_BUILDING, UPDATE_BUILDING, DELETE_BUILDING } from "../actions/product-mix/product-mix-actions.interface";
+import { BuildingDefinition, LandAreaDivision, LandAreaDivisionPlanning, ProductMixState } from "../states/product-mix.state";
 
 const intitalState: ProductMixState = {
     landAreaDivision: {
@@ -33,6 +33,28 @@ export const productMixReducer = (prevState = intitalState, action: ProductMixAc
                 landAreaDivision: landAreaPlanning
             }
         }
+        case CREATE_BUILDING: {
+            let buildings = prevState.buildings;
+            let id = buildings.length;
+            const building = createBuilding(action.name, action.footprint, id);
+            buildings.push(building);
+            return {
+                ...prevState,
+                buildings
+            }
+        }
+        case UPDATE_BUILDING: {
+            let buildings = prevState.buildings;
+            buildings = updateBuilding(buildings, action.id, action.name, action.footprint);
+            console.log(buildings);
+            return {
+                ...prevState,
+                buildings
+            }
+        }
+        // case DELETE_BUILDING: {
+
+        // }
         default: {
             return prevState;
         }
@@ -67,4 +89,32 @@ const updateAreaDivisionsList = (prevState: ProductMixState, action: UpdateAreaD
     }
     landAreaPlanning.landAreaDivisions = landAreaDivisions;
     return landAreaPlanning;
+}
+
+const createBuilding = (name: string, footprint: number, id: number) => {
+    const building: BuildingDefinition = {
+        id: id,
+        name: name,
+        footprint: footprint,
+        buildingUnits: [],
+    }
+    return building;
+}
+
+const updateBuilding = (buildings: BuildingDefinition[], id: number, name?: string, footprint?: number): BuildingDefinition[] => {
+    let buildingIndex = buildings.findIndex(building => building.id == id);
+    if (buildingIndex !== -1) {
+        let building = buildings[buildingIndex];
+
+        if (name) {
+            building.name = name;
+        }
+
+        if (footprint) {
+            building.footprint = footprint;
+        }
+
+        buildings[buildingIndex] = building;
+    }
+    return buildings;
 }

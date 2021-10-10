@@ -16,8 +16,9 @@ const DELETE_AREA_DIVISION = 'DELETE_AREA_DIVISION';
  */
 export const CREATE_BUILDING = 'CREATE_BUILDING';
 export const UPDATE_BUILDING = 'UPDATE_BUILDING';
+
 // not crucial
-const DELETE_BUILDING = 'DELETE_BUILDING';
+export const DELETE_BUILDING = 'DELETE_BUILDING';
 
 /**
  * Add a building unit to an existing building
@@ -52,4 +53,11 @@ export interface CreateBuildingAction {
     footprint: number;
 }
 
-export type ProductMixAction = InitializeLandAreaAction | CreateAreaDivisionAction | UpdateAreaDivisionAction | CreateBuildingAction;
+export interface UpdateBuildingAction {
+    type: typeof UPDATE_BUILDING;
+    id: number;
+    name?: string;
+    footprint?: number;
+}
+
+export type ProductMixAction = InitializeLandAreaAction | CreateAreaDivisionAction | UpdateAreaDivisionAction | CreateBuildingAction | UpdateBuildingAction;
