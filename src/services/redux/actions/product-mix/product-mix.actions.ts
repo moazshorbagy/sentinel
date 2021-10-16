@@ -2,7 +2,7 @@ import { ThunkAction } from "redux-thunk";
 import { measuringUnits } from "../../../../services/utils/measuring-unit";
 import { BuildingUnitDefinition } from "../../states/product-mix.state";
 import { RootState, store } from "../../store";
-import { CREATE_AREA_DIVISION, CREATE_BUILDING, InitializeLandAreaAction, UPDATE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION, UPDATE_BUILDING, AddBuildingUnitAction, ADD_BUILDING_UNIT, UpdateBuildingUnitAction, UPDATE_BUILDING_UNIT } from "./product-mix-actions.interface";
+import { CREATE_AREA_DIVISION, CREATE_BUILDING, InitializeLandAreaAction, UPDATE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION, UPDATE_BUILDING, AddBuildingUnitAction, ADD_BUILDING_UNIT, UpdateBuildingUnitAction, UPDATE_BUILDING_UNIT, UpdateBuildingParkingAreaAction, UPDATE_BUILDING_PARKING_AREA, UpdateBuildingUnitParkingSlotsAction, UPDATE_BUILDING_UNIT_PARKING_SLOTS } from "./product-mix-actions.interface";
 import { buildingNameExists, getAreaInMeterSquare, getLandDivisionsTotalOccupiedArea } from "./utils";
 
 export class ProductMixActions {
@@ -127,8 +127,8 @@ export class ProductMixActions {
         }
     }
 
-    public updateBuildingUnit = (buildingId: number, buildingUnitId: number, {name, assetType, numberOfUnits,
-        builtUpArea, sellableArea, numberOfParkingSlots}: Partial<BuildingUnitDefinition>): ThunkAction<void, RootState, null, ProductMixAction> => {
+    public updateBuildingUnit = (buildingId: number, buildingUnitId: number, { name, assetType, numberOfUnits,
+        builtUpArea, sellableArea, numberOfParkingSlots }: Partial<BuildingUnitDefinition>): ThunkAction<void, RootState, null, ProductMixAction> => {
         return async dispatch => {
             try {
                 const buildingIndex: number = store.getState().productMix.buildings.findIndex(building => building.id == buildingId);
@@ -150,6 +150,47 @@ export class ProductMixActions {
                     }
                 }
             } catch (e) {
+                console.log(e);
+            }
+        }
+    }
+
+    public updateBuildingParkingArea = (buildingId: number, parkingArea: number): ThunkAction<void, RootState, null, ProductMixAction> => {
+        return async dispatch => {
+            try {
+                const buildingIndex: number = store.getState().productMix.buildings.findIndex(building => building.id == buildingId);
+                if (buildingIndex != -1) {
+                    const action: UpdateBuildingParkingAreaAction = {
+                        type: UPDATE_BUILDING_PARKING_AREA,
+                        buildingIndex: buildingIndex,
+                        parkingArea: parkingArea
+                    }
+                    dispatch(action);
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
+
+    public updateBuildingUnitParkingArea = (buildingId: number, buildingUnitId: number, numberOfParkingSlots: number): ThunkAction<void, RootState, null, ProductMixAction> => {
+        return async dispatch => {
+            try {
+                const buildingIndex: number = store.getState().productMix.buildings.findIndex(building => building.id == buildingId);
+                if (buildingIndex != -1) {
+                    const buildingUnitIndex = store.getState().productMix.buildings[buildingIndex].buildingUnits.findIndex(unit => unit.id == buildingUnitId);
+                    if (buildingUnitIndex != -1 ) {
+                        const action: UpdateBuildingUnitParkingSlotsAction = {
+                            type: UPDATE_BUILDING_UNIT_PARKING_SLOTS,
+                            buildingIndex,
+                            buildingUnitIndex,
+                            numberOfParkingSlots
+                        }
+                        dispatch(action);
+                    }
+                    
+                }
+            } catch(e) {
                 console.log(e);
             }
         }

@@ -1,4 +1,4 @@
-import { CreateAreaDivisionAction, CREATE_AREA_DIVISION, UPDATE_LAND_AREA, ProductMixAction, UpdateAreaDivisionAction, UPDATE_AREA_DIVISION, CREATE_BUILDING, UPDATE_BUILDING, ADD_BUILDING_UNIT, UPDATE_BUILDING_UNIT } from "../actions/product-mix/product-mix-actions.interface";
+import { CreateAreaDivisionAction, CREATE_AREA_DIVISION, UPDATE_LAND_AREA, ProductMixAction, UpdateAreaDivisionAction, UPDATE_AREA_DIVISION, CREATE_BUILDING, UPDATE_BUILDING, ADD_BUILDING_UNIT, UPDATE_BUILDING_UNIT, UPDATE_BUILDING_PARKING_AREA, UPDATE_BUILDING_UNIT_PARKING_SLOTS } from "../actions/product-mix/product-mix-actions.interface";
 import { sum } from "../actions/product-mix/utils";
 import { BuildingDefinition, BuildingUnitDefinition, LandAreaDivision, LandAreaDivisionPlanning, ProductMixState } from "../states/product-mix.state";
 
@@ -70,6 +70,18 @@ export const productMixReducer = (prevState = intitalState, action: ProductMixAc
                 buildings
             }
         }
+        case UPDATE_BUILDING_PARKING_AREA: {
+            let buildings = prevState.buildings;
+            buildings = updateBuildingParkingArea(buildings, action.buildingIndex, action.parkingArea);
+            return {
+                ...prevState,
+                buildings
+            }
+        }
+        case UPDATE_BUILDING_UNIT_PARKING_SLOTS: {
+            let buildings = prevState.buildings;
+            buildings = updateBuildingUnitParkingSlots(buildings, action.buildingIndex, action.buildingUnitIndex, action.numberOfParkingSlots);
+        }
         default: {
             return prevState;
         }
@@ -112,6 +124,10 @@ const createBuilding = (name: string, footprint: number, id: number) => {
         name: name,
         footprint: footprint,
         buildingUnits: [],
+        parkingAreaDefinition: {
+            totalArea: 0,
+            parkingSlotArea: 0
+        }
     }
     return building;
 }
@@ -142,7 +158,8 @@ const addBuildingUnit = (buildings: BuildingDefinition[], buildingIndex: number,
         assetType: assetType,
         builtUpArea: builtUpArea,
         numberOfUnits: numberOfUnits,
-        sellableArea: sellableArea
+        sellableArea: sellableArea,
+        numberOfParkingSlots: 0
     });
     buildings[buildingIndex] = building;
     return buildings;
@@ -180,7 +197,7 @@ const updateBuildingUnit = (buildings: BuildingDefinition[], buildingIndex: numb
 
         /** update building sellable area  
          * and sellable area efficieny
-         * */ 
+         * */
         building = updateBuildingSellableArea(building);
     }
 
@@ -205,4 +222,40 @@ const updateBuildingSellableArea = (building: BuildingDefinition) => {
     building.totalSellableArea = totalSellableArea;
     building.sellableAreaEfficiency = totalSellableArea / totalBuiltUpArea * 100;
     return building;
+}
+
+const updateBuildingParkingArea = (buildings: BuildingDefinition[], buildingIndex: number, parkingArea: number) => {
+    let building = buildings[buildingIndex];
+
+    building.parkingAreaDefinition.totalArea = parkingArea;
+
+    building = updateBuildingParkingSlotArea(building);
+
+    buildings[buildingIndex] = building;
+
+    return buildings;
+}
+
+const updateBuildingParkingSlotArea = (building: BuildingDefinition) => {
+    let parkingSlotsPerBuilding = building.buildingUnits.map(unit => unit.numberOfParkingSlots).reduce(sum, 0);
+
+    const parkingArea = building.parkingAreaDefinition.totalArea;
+
+    if (parkingSlotsPerBuilding) {
+        building.parkingAreaDefinition.parkingSlotArea = Math.floor(parkingArea / parkingSlotsPerBuilding);
+    }
+    
+    return building;
+}
+
+const updateBuildingUnitParkingSlots = (buildings: BuildingDefinition[], buildingIndex: number, buildingUnitIndex: number, numberOfParkingSlots: number) => {
+    let building = buildings[buildingIndex];
+    let unit = building.buildingUnits[buildingUnitIndex];
+    unit.numberOfParkingSlots = numberOfParkingSlots;
+
+    building = updateBuildingParkingSlotArea(building);
+
+    building.buildingUnits[buildingIndex] = unit;
+    buildings[buildingIndex] = building;
+    return buildings;
 }

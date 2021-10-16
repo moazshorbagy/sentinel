@@ -26,6 +26,9 @@ export const DELETE_BUILDING = 'DELETE_BUILDING';
 export const ADD_BUILDING_UNIT = 'ADD_BUILDING_UNIT';
 export const UPDATE_BUILDING_UNIT = 'UPDATE_BUILDING_UNIT';
 
+export const UPDATE_BUILDING_PARKING_AREA = 'UPDATE_BUILDING_PARKING_AREA';
+export const UPDATE_BUILDING_UNIT_PARKING_SLOTS = 'UPDATE_BUILDING_UNIT_PARKING_SLOTS';
+
 export interface InitializeLandAreaAction {
     type: typeof UPDATE_LAND_AREA;
 
@@ -89,4 +92,20 @@ export interface UpdateBuildingUnitAction {
     numberOfParkingSlots?: number;
 }
 
-export type ProductMixAction = InitializeLandAreaAction | CreateAreaDivisionAction | UpdateAreaDivisionAction | CreateBuildingAction | UpdateBuildingAction | AddBuildingUnitAction | UpdateBuildingUnitAction;
+export interface UpdateBuildingParkingAreaAction {
+    type: typeof UPDATE_BUILDING_PARKING_AREA;
+
+    buildingIndex: number;
+    parkingArea: number;
+}
+
+export interface UpdateBuildingUnitParkingSlotsAction {
+    type: typeof UPDATE_BUILDING_UNIT_PARKING_SLOTS;
+
+    buildingIndex: number;
+    buildingUnitIndex: number;
+
+    numberOfParkingSlots: number;
+}
+
+export type ProductMixAction = InitializeLandAreaAction | CreateAreaDivisionAction | UpdateAreaDivisionAction | CreateBuildingAction | UpdateBuildingAction | AddBuildingUnitAction | UpdateBuildingUnitAction | UpdateBuildingParkingAreaAction | UpdateBuildingUnitParkingSlotsAction;
