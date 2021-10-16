@@ -1,9 +1,9 @@
 import { ThunkAction } from "redux-thunk";
 import { measuringUnits } from "../../../../services/utils/measuring-unit";
-import { BuildingDefinition, BuildingUnitDefinition } from "../../states/product-mix.state";
+import { BuildingUnitDefinition } from "../../states/product-mix.state";
 import { RootState, store } from "../../store";
 import { CREATE_AREA_DIVISION, CREATE_BUILDING, InitializeLandAreaAction, UPDATE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION, UPDATE_BUILDING, AddBuildingUnitAction, ADD_BUILDING_UNIT, UpdateBuildingUnitAction, UPDATE_BUILDING_UNIT } from "./product-mix-actions.interface";
-import { buildingNameExists, getAreaInMeterSquare, getLandDivisionIndexByName, getLandDivisionsTotalOccupiedArea } from "./utils";
+import { buildingNameExists, getAreaInMeterSquare, getLandDivisionsTotalOccupiedArea } from "./utils";
 
 export class ProductMixActions {
     public changeLandArea = (totalArea: number, measuringUnit: measuringUnits): ThunkAction<void, RootState, null, ProductMixAction> => {
