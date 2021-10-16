@@ -26,7 +26,7 @@ export const getAreaInMeterSquare = (value: number, totalArea: number, type: mea
     }
 }
 
-const sum = (a: number, b: number): number => {
+export const sum = (a: number, b: number): number => {
     return a + b;
 }
 
