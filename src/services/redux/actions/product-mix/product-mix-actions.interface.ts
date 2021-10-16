@@ -24,6 +24,7 @@ export const DELETE_BUILDING = 'DELETE_BUILDING';
  * Add a building unit to an existing building
  */
 export const ADD_BUILDING_UNIT = 'ADD_BUILDING_UNIT';
+export const UPDATE_BUILDING_UNIT = 'UPDATE_BUILDING_UNIT';
 
 export interface InitializeLandAreaAction {
     type: typeof UPDATE_LAND_AREA;
@@ -75,4 +76,17 @@ export interface AddBuildingUnitAction {
     sellableArea: number;
 }
 
-export type ProductMixAction = InitializeLandAreaAction | CreateAreaDivisionAction | UpdateAreaDivisionAction | CreateBuildingAction | UpdateBuildingAction | AddBuildingUnitAction;
+export interface UpdateBuildingUnitAction {
+    type: typeof UPDATE_BUILDING_UNIT;
+
+    buildingUnitIndex: number;
+    buildingIndex: number;
+    name?: string;
+    assetType?: string;
+    numberOfUnitsPerBuilding?: number;
+    builtUpAreaPerBuilding?: number;
+    sellableArea?: number;
+    numberOfParkingSlots?: number;
+}
+
+export type ProductMixAction = InitializeLandAreaAction | CreateAreaDivisionAction | UpdateAreaDivisionAction | CreateBuildingAction | UpdateBuildingAction | AddBuildingUnitAction | UpdateBuildingUnitAction;

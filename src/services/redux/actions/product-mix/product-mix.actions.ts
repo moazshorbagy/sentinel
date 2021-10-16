@@ -2,7 +2,7 @@ import { ThunkAction } from "redux-thunk";
 import { measuringUnits } from "../../../../services/utils/measuring-unit";
 import { BuildingDefinition, BuildingUnitDefinition } from "../../states/product-mix.state";
 import { RootState, store } from "../../store";
-import { CREATE_AREA_DIVISION, CREATE_BUILDING, InitializeLandAreaAction, UPDATE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION, UPDATE_BUILDING, AddBuildingUnitAction, ADD_BUILDING_UNIT } from "./product-mix-actions.interface";
+import { CREATE_AREA_DIVISION, CREATE_BUILDING, InitializeLandAreaAction, UPDATE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION, UPDATE_BUILDING, AddBuildingUnitAction, ADD_BUILDING_UNIT, UpdateBuildingUnitAction, UPDATE_BUILDING_UNIT } from "./product-mix-actions.interface";
 import { buildingNameExists, getAreaInMeterSquare, getLandDivisionIndexByName, getLandDivisionsTotalOccupiedArea } from "./utils";
 
 export class ProductMixActions {
@@ -121,7 +121,35 @@ export class ProductMixActions {
                     }
                     dispatch(action);
                 }
-            } catch(e) {
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
+
+    public updateBuildingUnit = (buildingId: number, buildingUnitId: number, {name, assetType, numberOfUnits,
+        builtUpArea, sellableArea, numberOfParkingSlots}: Partial<BuildingUnitDefinition>): ThunkAction<void, RootState, null, ProductMixAction> => {
+        return async dispatch => {
+            try {
+                const buildingIndex: number = store.getState().productMix.buildings.findIndex(building => building.id == buildingId);
+                if (buildingIndex != -1) {
+                    const buildingUnitIndex = store.getState().productMix.buildings[buildingIndex].buildingUnits.findIndex(unit => unit.id == buildingUnitId);
+                    if (buildingUnitIndex != -1) {
+                        const action: UpdateBuildingUnitAction = {
+                            type: UPDATE_BUILDING_UNIT,
+                            buildingIndex: buildingIndex,
+                            buildingUnitIndex: buildingUnitIndex,
+                            builtUpAreaPerBuilding: builtUpArea,
+                            name: name,
+                            assetType: assetType,
+                            numberOfUnitsPerBuilding: numberOfUnits,
+                            sellableArea: sellableArea,
+                            numberOfParkingSlots: numberOfParkingSlots
+                        }
+                        dispatch(action);
+                    }
+                }
+            } catch (e) {
                 console.log(e);
             }
         }

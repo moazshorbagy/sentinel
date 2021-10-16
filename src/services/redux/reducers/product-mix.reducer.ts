@@ -1,5 +1,7 @@
-import { CreateAreaDivisionAction, CREATE_AREA_DIVISION, UPDATE_LAND_AREA, ProductMixAction, UpdateAreaDivisionAction, UPDATE_AREA_DIVISION, CREATE_BUILDING, UPDATE_BUILDING, DELETE_BUILDING, ADD_BUILDING_UNIT } from "../actions/product-mix/product-mix-actions.interface";
+import { CreateAreaDivisionAction, CREATE_AREA_DIVISION, UPDATE_LAND_AREA, ProductMixAction, UpdateAreaDivisionAction, UPDATE_AREA_DIVISION, CREATE_BUILDING, UPDATE_BUILDING, DELETE_BUILDING, ADD_BUILDING_UNIT, UPDATE_BUILDING_UNIT } from "../actions/product-mix/product-mix-actions.interface";
+import { sum } from "../actions/product-mix/utils";
 import { BuildingDefinition, BuildingUnitDefinition, LandAreaDivision, LandAreaDivisionPlanning, ProductMixState } from "../states/product-mix.state";
+
 
 const intitalState: ProductMixState = {
     landAreaDivision: {
@@ -54,6 +56,15 @@ export const productMixReducer = (prevState = intitalState, action: ProductMixAc
         case ADD_BUILDING_UNIT: {
             let buildings = prevState.buildings;
             buildings = addBuildingUnit(buildings, action.buildingIndex, action.name, action.assetType, action.numberOfUnitsPerBuilding, action.builtUpAreaPerBuilding, action.sellableArea);
+            return {
+                ...prevState,
+                buildings
+            }
+        }
+        case UPDATE_BUILDING_UNIT: {
+            let buildings = prevState.buildings;
+            buildings = updateBuildingUnit(buildings, action.buildingIndex, action.buildingUnitIndex, action.name, action.assetType, action.numberOfUnitsPerBuilding, action.builtUpAreaPerBuilding, action.sellableArea,
+                action.numberOfParkingSlots);
             return {
                 ...prevState,
                 buildings
@@ -126,7 +137,8 @@ const updateBuilding = (buildings: BuildingDefinition[], id: number, name?: stri
 const addBuildingUnit = (buildings: BuildingDefinition[], buildingIndex: number, name: string, assetType: string, numberOfUnits: number, builtUpArea: number, sellableArea: number) => {
     let building = buildings[buildingIndex];
     building.buildingUnits.push({
-        name: name, 
+        id: building.buildingUnits.length,
+        name: name,
         assetType: assetType,
         builtUpArea: builtUpArea,
         numberOfUnits: numberOfUnits,
@@ -134,4 +146,63 @@ const addBuildingUnit = (buildings: BuildingDefinition[], buildingIndex: number,
     });
     buildings[buildingIndex] = building;
     return buildings;
+}
+
+const updateBuildingUnit = (buildings: BuildingDefinition[], buildingIndex: number, buildingUnitIndex: number, name?: string, assetType?: string, numberOfUnits?: number, builtUpArea?: number, sellableArea?: number, numberOfParkingSlots?: number) => {
+
+    // Get the building unit
+    let building = buildings[buildingIndex];
+    let buildingUnits = building.buildingUnits;
+    let unit = buildingUnits[buildingUnitIndex];
+
+    if (name) {
+        unit.name = name;
+    }
+
+    if (assetType) {
+        unit.assetType = assetType;
+    }
+
+    if (numberOfUnits) {
+        unit.numberOfUnits = numberOfUnits;
+    }
+
+    if (builtUpArea) {
+        unit.builtUpArea = builtUpArea;
+    }
+
+    if (numberOfParkingSlots) {
+        unit.numberOfParkingSlots = numberOfParkingSlots;
+    }
+
+    if (sellableArea) {
+        unit = updateUnitSellableArea(unit, sellableArea);
+
+        /** update building sellable area  
+         * and sellable area efficieny
+         * */ 
+        building = updateBuildingSellableArea(building);
+    }
+
+    // Save and return buildings list
+    buildingUnits[buildingIndex] = unit;
+    building.buildingUnits = buildingUnits;
+    buildings[buildingIndex] = building;
+
+    return buildings;
+}
+
+const updateUnitSellableArea = (unit: BuildingUnitDefinition, unitSellableArea: number) => {
+    unit.sellableArea = unitSellableArea;
+    unit.sellableAreaEfficiency = unit.sellableArea / unit.builtUpArea * 100;
+    return unit;
+}
+
+// updates sellable area and sellable area efficiency
+const updateBuildingSellableArea = (building: BuildingDefinition) => {
+    const totalBuiltUpArea = building.buildingUnits.map(unit => unit.builtUpArea).reduce(sum, 0);
+    const totalSellableArea = building.buildingUnits.map(unit => unit.sellableArea).reduce(sum, 0);
+    building.totalSellableArea = totalSellableArea;
+    building.sellableAreaEfficiency = totalSellableArea / totalBuiltUpArea * 100;
+    return building;
 }

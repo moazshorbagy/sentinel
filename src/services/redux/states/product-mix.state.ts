@@ -64,6 +64,10 @@ export interface BuildingUnitDefinition {
      * Corresponds to unit type in the product mix excel sheet
      */
     name: string;
+
+    // to identify building units
+    id: number;
+
     assetType: string;
     numberOfUnits: number;
     sellableArea: number;
