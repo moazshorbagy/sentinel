@@ -43,7 +43,7 @@ export interface BuildingDefinition {
      */
     footprint: number;
     buildingBuiltUpArea?: number;
-    buildingUnits: BuildingUnitsDefinition[];
+    buildingUnits: BuildingUnitDefinition[];
     numberOfFloors?: number;
 
     /**
@@ -59,7 +59,7 @@ export interface BuildingDefinition {
 /**
  * Building units definition per building
  */
-export interface BuildingUnitsDefinition {
+export interface BuildingUnitDefinition {
     /**
      * Corresponds to unit type in the product mix excel sheet
      */
@@ -67,9 +67,9 @@ export interface BuildingUnitsDefinition {
     assetType: string;
     numberOfUnits: number;
     sellableArea: number;
-    sellableAreaEfficiency: number;
+    sellableAreaEfficiency?: number;
     builtUpArea: number;
-    numberOfParkingSlots: number;
+    numberOfParkingSlots?: number;
 }
 
 export interface ParkingAreaDefinition {

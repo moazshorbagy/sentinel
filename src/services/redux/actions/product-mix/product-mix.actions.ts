@@ -1,7 +1,8 @@
 import { ThunkAction } from "redux-thunk";
 import { measuringUnits } from "../../../../services/utils/measuring-unit";
+import { BuildingDefinition, BuildingUnitDefinition } from "../../states/product-mix.state";
 import { RootState, store } from "../../store";
-import { CREATE_AREA_DIVISION, CREATE_BUILDING, InitializeLandAreaAction, UPDATE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION, UPDATE_BUILDING } from "./product-mix-actions.interface";
+import { CREATE_AREA_DIVISION, CREATE_BUILDING, InitializeLandAreaAction, UPDATE_LAND_AREA, ProductMixAction, UPDATE_AREA_DIVISION, UPDATE_BUILDING, AddBuildingUnitAction, ADD_BUILDING_UNIT } from "./product-mix-actions.interface";
 import { buildingNameExists, getAreaInMeterSquare, getLandDivisionIndexByName, getLandDivisionsTotalOccupiedArea } from "./utils";
 
 export class ProductMixActions {
@@ -96,6 +97,31 @@ export class ProductMixActions {
             try {
                 dispatch({ type: UPDATE_BUILDING, name, id });
             } catch (e) {
+                console.log(e);
+            }
+        }
+    }
+
+    public addBuildingUnit = (
+        buildingId: number, name: string, assetType: string, numberOfUnitsPerBuilding: number,
+        builtUpAreaPerBuilding: number, sellableArea: number): ThunkAction<void, RootState, null, ProductMixAction> => {
+        return async dispatch => {
+            try {
+                // safely getting the building index
+                let buildingIndex: number = store.getState().productMix.buildings.findIndex(building => building.id == buildingId);
+                if (buildingIndex != -1) {
+                    const action: AddBuildingUnitAction = {
+                        buildingIndex: buildingIndex,
+                        type: ADD_BUILDING_UNIT,
+                        name: name,
+                        assetType: assetType,
+                        numberOfUnitsPerBuilding: numberOfUnitsPerBuilding,
+                        builtUpAreaPerBuilding: builtUpAreaPerBuilding,
+                        sellableArea: sellableArea
+                    }
+                    dispatch(action);
+                }
+            } catch(e) {
                 console.log(e);
             }
         }

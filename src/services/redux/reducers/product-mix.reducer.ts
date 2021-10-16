@@ -1,5 +1,5 @@
-import { CreateAreaDivisionAction, CREATE_AREA_DIVISION, UPDATE_LAND_AREA, ProductMixAction, UpdateAreaDivisionAction, UPDATE_AREA_DIVISION, CREATE_BUILDING, UPDATE_BUILDING, DELETE_BUILDING } from "../actions/product-mix/product-mix-actions.interface";
-import { BuildingDefinition, LandAreaDivision, LandAreaDivisionPlanning, ProductMixState } from "../states/product-mix.state";
+import { CreateAreaDivisionAction, CREATE_AREA_DIVISION, UPDATE_LAND_AREA, ProductMixAction, UpdateAreaDivisionAction, UPDATE_AREA_DIVISION, CREATE_BUILDING, UPDATE_BUILDING, DELETE_BUILDING, ADD_BUILDING_UNIT } from "../actions/product-mix/product-mix-actions.interface";
+import { BuildingDefinition, BuildingUnitDefinition, LandAreaDivision, LandAreaDivisionPlanning, ProductMixState } from "../states/product-mix.state";
 
 const intitalState: ProductMixState = {
     landAreaDivision: {
@@ -46,15 +46,19 @@ export const productMixReducer = (prevState = intitalState, action: ProductMixAc
         case UPDATE_BUILDING: {
             let buildings = prevState.buildings;
             buildings = updateBuilding(buildings, action.id, action.name, action.footprint);
-            console.log(buildings);
             return {
                 ...prevState,
                 buildings
             }
         }
-        // case DELETE_BUILDING: {
-
-        // }
+        case ADD_BUILDING_UNIT: {
+            let buildings = prevState.buildings;
+            buildings = addBuildingUnit(buildings, action.buildingIndex, action.name, action.assetType, action.numberOfUnitsPerBuilding, action.builtUpAreaPerBuilding, action.sellableArea);
+            return {
+                ...prevState,
+                buildings
+            }
+        }
         default: {
             return prevState;
         }
@@ -116,5 +120,18 @@ const updateBuilding = (buildings: BuildingDefinition[], id: number, name?: stri
 
         buildings[buildingIndex] = building;
     }
+    return buildings;
+}
+
+const addBuildingUnit = (buildings: BuildingDefinition[], buildingIndex: number, name: string, assetType: string, numberOfUnits: number, builtUpArea: number, sellableArea: number) => {
+    let building = buildings[buildingIndex];
+    building.buildingUnits.push({
+        name: name, 
+        assetType: assetType,
+        builtUpArea: builtUpArea,
+        numberOfUnits: numberOfUnits,
+        sellableArea: sellableArea
+    });
+    buildings[buildingIndex] = building;
     return buildings;
 }

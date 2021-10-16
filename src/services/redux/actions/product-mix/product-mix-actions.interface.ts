@@ -60,4 +60,19 @@ export interface UpdateBuildingAction {
     footprint?: number;
 }
 
-export type ProductMixAction = InitializeLandAreaAction | CreateAreaDivisionAction | UpdateAreaDivisionAction | CreateBuildingAction | UpdateBuildingAction;
+export interface AddBuildingUnitAction {
+    type: typeof ADD_BUILDING_UNIT;
+
+    // the index of the building in the buildings array
+    buildingIndex: number;
+
+    /** Maps to unit Type */
+    name: string;
+
+    assetType: string;
+    numberOfUnitsPerBuilding: number;
+    builtUpAreaPerBuilding: number;
+    sellableArea: number;
+}
+
+export type ProductMixAction = InitializeLandAreaAction | CreateAreaDivisionAction | UpdateAreaDivisionAction | CreateBuildingAction | UpdateBuildingAction | AddBuildingUnitAction;
